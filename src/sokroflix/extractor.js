@@ -1,7 +1,11 @@
 /**
- * Sokroflix Extractor for Nuvio
+ * Sokroflix Real Web Scraper for Nuvio
  */
-import { HEADERS } from './http.js';
+import { fetchText, HEADERS } from './http.js';
+import cheerio from 'cheerio-without-node-native';
+
+const TMDB_API_KEY = "439c478a771f35c05022f9feabcca01c";
+const DOMAIN = "https://sokroflix.biz";
 
 function getQualityScore(qualityStr) {
     const q = (qualityStr || "").toLowerCase();
@@ -30,6 +34,38 @@ function sortStreamsByPriority(streams) {
     });
 }
 
+function detectHost(url) {
+    const u = (url || "").toLowerCase();
+    if (u.includes("uqload")) return "Uqload";
+    if (u.includes("sibnet")) return "Sibnet";
+    if (u.includes("vudeo")) return "Vudeo";
+    if (u.includes("vidmoly")) return "Vidmoly";
+    if (u.includes("streamtape")) return "Streamtape";
+    if (u.includes("dood")) return "Doodstream";
+    if (u.includes("filemoon")) return "Filemoon";
+    if (u.includes("mixdrop")) return "Mixdrop";
+    if (u.includes("upstream")) return "Upstream";
+    if (u.includes("supervideo")) return "Supervideo";
+    return "Serveur Rapide";
+}
+
+async function getMediaInfo(tmdbId, isSeries) {
+    try {
+        const type = isSeries ? "tv" : "movie";
+        const url = "https://api.themoviedb.org/3/" + type + "/" + tmdbId + "?api_key=" + TMDB_API_KEY + "&language=fr-FR";
+        const res = await fetch(url, { headers: HEADERS });
+        if (!res.ok) return null;
+        const data = await res.json();
+        return {
+            titleFr: data.title || data.name || "",
+            titleEn: data.original_title || data.original_name || "",
+            year: (data.release_date || data.first_air_date || "").split("-")[0] || ""
+        };
+    } catch (e) {
+        return null;
+    }
+}
+
 export async function extractStreams(tmdbId, mediaType, season, episode) {
     if (!tmdbId) return [];
 
@@ -42,41 +78,98 @@ export async function extractStreams(tmdbId, mediaType, season, episode) {
         return [];
     }
 
-    console.log("[Sokroflix] Extraction pour ID:", tmdbId, "Type:", type);
     let streams = [];
 
     try {
-        let streamUrl = "";
-        if (!isSeries) {
-            streamUrl = "https://vidsrc.me/embed/movie?tmdb=" + tmdbId;
-        } else {
-            const s = season || 1;
-            const e = episode || 1;
-            streamUrl = "https://vidsrc.me/embed/tv?tmdb=" + tmdbId + "&season=" + s + "&episode=" + e;
+        const mediaInfo = await getMediaInfo(tmdbId, isSeries);
+        const searchTitle = (mediaInfo && mediaInfo.titleFr) ? mediaInfo.titleFr : (mediaInfo ? mediaInfo.titleEn : tmdbId);
+
+        console.log("[Sokroflix] Scraping direct pour:", searchTitle, "(" + type + ")");
+
+        // 1. Exécution de la recherche sur le site cible
+        let searchHtml = "";
+        const searchUrl = DOMAIN + "/?s=" + encodeURIComponent(searchTitle);
+        
+        try {
+            searchHtml = await fetchText(searchUrl, { headers: HEADERS });
+        } catch (fetchErr) {
+            console.log("[Sokroflix] Recherche inaccessible:", fetchErr.message);
         }
 
-        if (streamUrl) {
-            streams.push({
-                name: "Sokroflix",
-                title: "🇫🇷 VF • 1080p Full HD",
-                url: streamUrl,
-                quality: "1080p",
-                headers: HEADERS
+        if (searchHtml) {
+            const $ = cheerio.load(searchHtml);
+            let mediaPageUrl = "";
+
+            $(".item, .film, article").each((i, el) => {
+                if (mediaPageUrl) return;
+                const linkEl = $(el).find("h3 a, .title a, a").first();
+                const linkHref = linkEl.attr("href") || $(el).find("a").first().attr("href");
+                if (linkHref) {
+                    mediaPageUrl = linkHref.startsWith("http") ? linkHref : (DOMAIN + linkHref);
+                }
             });
 
-            streams.push({
-                name: "Sokroflix",
-                title: "🇫🇷 MULTI (VF/VOSTFR) • 720p HD",
-                url: streamUrl,
-                quality: "720p",
-                headers: HEADERS
-            });
+            if (mediaPageUrl) {
+                console.log("[Sokroflix] Page trouvée:", mediaPageUrl);
+                try {
+                    const pageHtml = await fetchText(mediaPageUrl, { headers: HEADERS });
+                    const $$ = cheerio.load(pageHtml);
+
+                    $$("iframe, .player-iframe iframe").each((i, el) => {
+                        const src = $$(el).attr("src") || $$(el).attr("data-src") || "";
+                        if (src && !src.includes("google") && !src.includes("analytics") && !src.includes("doubleclick")) {
+                            const playerUrl = src.startsWith("//") ? ("https:" + src) : (src.startsWith("http") ? src : (DOMAIN + src));
+                            const hostName = detectHost(playerUrl);
+
+                            streams.push({
+                                name: "Sokroflix",
+                                title: "🇫🇷 " + "VF" + " • " + hostName + " (1080p FHD)",
+                                url: playerUrl,
+                                quality: "1080p",
+                                headers: HEADERS
+                            });
+                        }
+                    });
+                } catch (pageErr) {
+                    console.log("[Sokroflix] Erreur scraping page:", pageErr.message);
+                }
+            }
+        }
+
+        // 2. Fallback de sécurité : si aucun lecteur direct n'est scrapé ou si Cloudflare bloque
+        if (streams.length === 0) {
+            let backupUrl = "";
+            if (!isSeries) {
+                backupUrl = "https://vidsrc.me/embed/movie?tmdb=" + tmdbId;
+            } else {
+                const sNum = season || 1;
+                const eNum = episode || 1;
+                backupUrl = "https://vidsrc.me/embed/tv?tmdb=" + tmdbId + "&season=" + sNum + "&episode=" + eNum;
+            }
+
+            if (backupUrl) {
+                streams.push({
+                    name: "Sokroflix",
+                    title: "🇫🇷 VF • 1080p Full HD",
+                    url: backupUrl,
+                    quality: "1080p",
+                    headers: HEADERS
+                });
+
+                streams.push({
+                    name: "Sokroflix",
+                    title: "🇫🇷 MULTI (VF/VOSTFR) • 720p HD",
+                    url: backupUrl,
+                    quality: "720p",
+                    headers: HEADERS
+                });
+            }
         }
 
         streams = sortStreamsByPriority(streams);
 
     } catch (error) {
-        console.error("[Sokroflix] Erreur:", error);
+        console.error("[Sokroflix] Erreur globale:", error);
         return [];
     }
 
