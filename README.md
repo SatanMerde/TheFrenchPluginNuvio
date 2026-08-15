@@ -28,7 +28,7 @@ Pour installer ce plugin dans votre application Nuvio :
 
 ## 🌐 Sources incluses (Statut)
 
-Actuellement, ce plugin contient la structure et les templates pour les 10 sources suivantes :
+Actuellement, ce plugin contient la structure et les templates pour les 15 sources suivantes :
 - **Wiflix**
 - **French Stream**
 - **Vostfree** (Spécialisé Animes)
@@ -39,6 +39,11 @@ Actuellement, ce plugin contient la structure et les templates pour les 10 sourc
 - **VoirSeries**
 - **HDSS**
 - **Sokroflix**
+- **VFStreaming**
+- **Novaflix**
+- **Filmstoon**
+- **K-Streaming**
+- **Choupox**
 
 *(Toutes ces sources sont configurées avec le template d'extraction Nuvio. La communauté peut contribuer et ajuster les sélecteurs de scraping selon l'évolution des sites cibles).*
 

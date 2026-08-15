@@ -1,6 +1,6 @@
 /**
- * vostfree - Built from src/vostfree/
- * Generated: 2026-08-15T15:17:53.480Z
+ * novaflix - Built from src/novaflix/
+ * Generated: 2026-08-15T15:17:53.331Z
  */
 var __create = Object.create;
 var __defProp = Object.defineProperty;
@@ -45,13 +45,13 @@ var __async = (__this, __arguments, generator) => {
   });
 };
 
-// src/vostfree/http.js
+// src/novaflix/http.js
 var HEADERS = {
   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36"
   // Add other common headers like 'Referer' if needed
 };
 
-// src/vostfree/extractor.js
+// src/novaflix/extractor.js
 var import_cheerio_without_node_native = __toESM(require("cheerio-without-node-native"));
 function extractStreams(tmdbId, mediaType, season, episode) {
   return __async(this, null, function* () {
@@ -63,7 +63,7 @@ function extractStreams(tmdbId, mediaType, season, episode) {
       const videoUrl = "https://test-video-url.com/stream.mp4";
       if (videoUrl) {
         streams.push({
-          name: "Vostfree",
+          name: "Novaflix",
           title: "Lien Serveur 1 (FR)",
           url: videoUrl,
           quality: "1080p",
@@ -77,15 +77,15 @@ function extractStreams(tmdbId, mediaType, season, episode) {
   });
 }
 
-// src/vostfree/index.js
+// src/novaflix/index.js
 function getStreams(tmdbId, mediaType, season, episode) {
   return __async(this, null, function* () {
     try {
-      console.log(`[Vostfree] Request: ${mediaType} ${tmdbId}`);
+      console.log(`[Novaflix] Request: ${mediaType} ${tmdbId}`);
       const streams = yield extractStreams(tmdbId, mediaType, season, episode);
       return streams;
     } catch (error) {
-      console.error(`[Vostfree] Error: ${error.message}`);
+      console.error(`[Novaflix] Error: ${error.message}`);
       return [];
     }
   });

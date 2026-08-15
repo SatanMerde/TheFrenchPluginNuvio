@@ -103,6 +103,56 @@
                 "tv"
             ],
             "enabled": true
+        },
+        {
+            "id": "vfstreaming",
+            "name": "VFStreaming",
+            "filename": "providers/vfstreaming.js",
+            "supportedTypes": [
+                "movie",
+                "tv"
+            ],
+            "enabled": true
+        },
+        {
+            "id": "novaflix",
+            "name": "Novaflix",
+            "filename": "providers/novaflix.js",
+            "supportedTypes": [
+                "movie",
+                "tv"
+            ],
+            "enabled": true
+        },
+        {
+            "id": "filmstoon",
+            "name": "Filmstoon",
+            "filename": "providers/filmstoon.js",
+            "supportedTypes": [
+                "movie",
+                "tv"
+            ],
+            "enabled": true
+        },
+        {
+            "id": "k-streaming",
+            "name": "K-Streaming",
+            "filename": "providers/k-streaming.js",
+            "supportedTypes": [
+                "movie",
+                "tv"
+            ],
+            "enabled": true
+        },
+        {
+            "id": "choupox",
+            "name": "Choupox",
+            "filename": "providers/choupox.js",
+            "supportedTypes": [
+                "movie",
+                "tv"
+            ],
+            "enabled": true
         }
     ]
 }
