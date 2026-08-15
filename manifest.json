@@ -1,158 +1,665 @@
 {
-    "id": "com.satanmerde.frenchplugin",
-    "name": "The French Plugin",
-    "version": "1.0.0",
-    "description": "Le meilleur plugin de sources francophones pour Nuvio (Films, Séries, Animes).",
-    "providers": [
-        {
-            "id": "wiflix",
-            "name": "Wiflix (FR)",
-            "supportedTypes": [
-                "movie",
-                "tv"
-            ],
-            "enabled": true,
-            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/wiflix.js"
-        },
-        {
-            "id": "french-stream",
-            "name": "French Stream",
-            "supportedTypes": [
-                "movie",
-                "tv"
-            ],
-            "enabled": true,
-            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/french-stream.js"
-        },
-        {
-            "id": "vostfree",
-            "name": "Vostfree",
-            "supportedTypes": [
-                "movie",
-                "tv"
-            ],
-            "enabled": true,
-            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/vostfree.js"
-        },
-        {
-            "id": "darkino",
-            "name": "Darkino",
-            "supportedTypes": [
-                "movie",
-                "tv"
-            ],
-            "enabled": true,
-            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/darkino.js"
-        },
-        {
-            "id": "cpasbien",
-            "name": "Cpasbien",
-            "supportedTypes": [
-                "movie",
-                "tv"
-            ],
-            "enabled": true,
-            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/cpasbien.js"
-        },
-        {
-            "id": "empire-streaming",
-            "name": "Empire Streaming",
-            "supportedTypes": [
-                "movie",
-                "tv"
-            ],
-            "enabled": true,
-            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/empire-streaming.js"
-        },
-        {
-            "id": "papadustream",
-            "name": "PapaDuStream",
-            "supportedTypes": [
-                "movie",
-                "tv"
-            ],
-            "enabled": true,
-            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/papadustream.js"
-        },
-        {
-            "id": "voirseries",
-            "name": "VoirSeries",
-            "supportedTypes": [
-                "movie",
-                "tv"
-            ],
-            "enabled": true,
-            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/voirseries.js"
-        },
-        {
-            "id": "hdss",
-            "name": "HDSS",
-            "supportedTypes": [
-                "movie",
-                "tv"
-            ],
-            "enabled": true,
-            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/hdss.js"
-        },
-        {
-            "id": "sokroflix",
-            "name": "Sokroflix",
-            "supportedTypes": [
-                "movie",
-                "tv"
-            ],
-            "enabled": true,
-            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/sokroflix.js"
-        },
-        {
-            "id": "vfstreaming",
-            "name": "VFStreaming",
-            "supportedTypes": [
-                "movie",
-                "tv"
-            ],
-            "enabled": true,
-            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/vfstreaming.js"
-        },
-        {
-            "id": "novaflix",
-            "name": "Novaflix",
-            "supportedTypes": [
-                "movie",
-                "tv"
-            ],
-            "enabled": true,
-            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/novaflix.js"
-        },
-        {
-            "id": "filmstoon",
-            "name": "Filmstoon",
-            "supportedTypes": [
-                "movie",
-                "tv"
-            ],
-            "enabled": true,
-            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/filmstoon.js"
-        },
-        {
-            "id": "k-streaming",
-            "name": "K-Streaming",
-            "supportedTypes": [
-                "movie",
-                "tv"
-            ],
-            "enabled": true,
-            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/k-streaming.js"
-        },
-        {
-            "id": "choupox",
-            "name": "Choupox",
-            "supportedTypes": [
-                "movie",
-                "tv"
-            ],
-            "enabled": true,
-            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/choupox.js"
-        }
-    ]
+  "name": "The French Plugin",
+  "id": "com.satanmerde.frenchplugin",
+  "version": "1.0.0",
+  "description": "Le meilleur plugin de sources francophones pour Nuvio (Films, Séries, Animes).",
+  "author": "SatanMerde",
+  "scrapers": [
+    {
+      "id": "french-stream",
+      "name": "French Stream",
+      "description": "Films & Séries VF/VOSTFR",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/french-stream.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/french-stream.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "vostfree",
+      "name": "Vostfree",
+      "description": "Animes en VF & VOSTFR",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/vostfree.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/vostfree.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "wiflix",
+      "name": "Wiflix",
+      "description": "Films & Séries VF",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/wiflix.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/wiflix.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "darkino",
+      "name": "Darkino",
+      "description": "Streaming & Téléchargement VF",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/darkino.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/darkino.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "cpasbien",
+      "name": "Cpasbien",
+      "description": "Torrents & Streaming VF",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/cpasbien.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/cpasbien.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "empire-streaming",
+      "name": "Empire Streaming",
+      "description": "Films & Séries Haute Qualité VF",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/empire-streaming.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/empire-streaming.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "papadustream",
+      "name": "PapaDuStream",
+      "description": "Streaming Séries et Films VF",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/papadustream.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/papadustream.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "voirseries",
+      "name": "VoirSeries",
+      "description": "Séries en Streaming VF/VOSTFR",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "tv"
+      ],
+      "filename": "providers/voirseries.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/voirseries.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "hdss",
+      "name": "HDSS",
+      "description": "Films & Séries en HD",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/hdss.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/hdss.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "sokroflix",
+      "name": "Sokroflix",
+      "description": "Films & Séries VF/VOSTFR",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/sokroflix.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/sokroflix.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "vfstreaming",
+      "name": "VFStreaming",
+      "description": "Films en Version Française",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie"
+      ],
+      "filename": "providers/vfstreaming.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/vfstreaming.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "novaflix",
+      "name": "Novaflix",
+      "description": "Films & Séries VF",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/novaflix.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/novaflix.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "filmstoon",
+      "name": "Filmstoon",
+      "description": "Films & Séries VF",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/filmstoon.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/filmstoon.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "k-streaming",
+      "name": "K-Streaming",
+      "description": "Films & Séries en VF",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/k-streaming.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/k-streaming.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "choupox",
+      "name": "Choupox",
+      "description": "Films sans pub en VF",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie"
+      ],
+      "filename": "providers/choupox.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/choupox.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    }
+  ],
+  "providers": [
+    {
+      "id": "french-stream",
+      "name": "French Stream",
+      "description": "Films & Séries VF/VOSTFR",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/french-stream.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/french-stream.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "vostfree",
+      "name": "Vostfree",
+      "description": "Animes en VF & VOSTFR",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/vostfree.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/vostfree.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "wiflix",
+      "name": "Wiflix",
+      "description": "Films & Séries VF",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/wiflix.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/wiflix.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "darkino",
+      "name": "Darkino",
+      "description": "Streaming & Téléchargement VF",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/darkino.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/darkino.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "cpasbien",
+      "name": "Cpasbien",
+      "description": "Torrents & Streaming VF",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/cpasbien.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/cpasbien.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "empire-streaming",
+      "name": "Empire Streaming",
+      "description": "Films & Séries Haute Qualité VF",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/empire-streaming.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/empire-streaming.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "papadustream",
+      "name": "PapaDuStream",
+      "description": "Streaming Séries et Films VF",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/papadustream.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/papadustream.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "voirseries",
+      "name": "VoirSeries",
+      "description": "Séries en Streaming VF/VOSTFR",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "tv"
+      ],
+      "filename": "providers/voirseries.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/voirseries.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "hdss",
+      "name": "HDSS",
+      "description": "Films & Séries en HD",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/hdss.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/hdss.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "sokroflix",
+      "name": "Sokroflix",
+      "description": "Films & Séries VF/VOSTFR",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/sokroflix.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/sokroflix.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "vfstreaming",
+      "name": "VFStreaming",
+      "description": "Films en Version Française",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie"
+      ],
+      "filename": "providers/vfstreaming.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/vfstreaming.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "novaflix",
+      "name": "Novaflix",
+      "description": "Films & Séries VF",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/novaflix.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/novaflix.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "filmstoon",
+      "name": "Filmstoon",
+      "description": "Films & Séries VF",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/filmstoon.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/filmstoon.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "k-streaming",
+      "name": "K-Streaming",
+      "description": "Films & Séries en VF",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/k-streaming.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/k-streaming.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    },
+    {
+      "id": "choupox",
+      "name": "Choupox",
+      "description": "Films sans pub en VF",
+      "version": "1.0.0",
+      "author": "TheFrenchPlugin Team",
+      "supportedTypes": [
+        "movie"
+      ],
+      "filename": "providers/choupox.js",
+      "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/choupox.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mkv"
+      ],
+      "contentLanguage": [
+        "fr"
+      ]
+    }
+  ]
 }
