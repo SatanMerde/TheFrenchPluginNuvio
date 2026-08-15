@@ -1,6 +1,6 @@
 /**
  * sokroflix - Built from src/sokroflix/
- * Generated: 2026-08-15T15:41:10.196Z
+ * Generated: 2026-08-15T15:54:26.258Z
  */
 var __create = Object.create;
 var __defProp = Object.defineProperty;
@@ -61,19 +61,35 @@ var __async = (__this, __arguments, generator) => {
 
 // src/sokroflix/http.js
 var HEADERS = {
-  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36"
-  // Add other common headers like 'Referer' if needed
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+  "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
 };
-function fetchText(_0) {
-  return __async(this, arguments, function* (url, options = {}) {
-    console.log(`[Template] Fetching: ${url}`);
-    const response = yield fetch(url, __spreadValues({
-      headers: __spreadValues(__spreadValues({}, HEADERS), options.headers)
-    }, options));
-    if (!response.ok) {
-      throw new Error(`HTTP error ${response.status} for ${url}`);
+function fetchWithTimeout(_0) {
+  return __async(this, arguments, function* (url, options = {}, timeoutMs = 2e3) {
+    let timeoutId;
+    const timeoutPromise = new Promise((_, reject) => {
+      timeoutId = setTimeout(() => reject(new Error("Timeout " + timeoutMs + "ms")), timeoutMs);
+    });
+    try {
+      const fetchPromise = fetch(url, __spreadValues({
+        headers: __spreadValues(__spreadValues({}, HEADERS), options.headers)
+      }, options));
+      const response = yield Promise.race([fetchPromise, timeoutPromise]);
+      clearTimeout(timeoutId);
+      return response;
+    } catch (e) {
+      clearTimeout(timeoutId);
+      throw e;
     }
-    return yield response.text();
+  });
+}
+function fetchText(_0) {
+  return __async(this, arguments, function* (url, options = {}, timeoutMs = 2e3) {
+    const res = yield fetchWithTimeout(url, options, timeoutMs);
+    if (!res.ok) {
+      throw new Error("HTTP error " + res.status);
+    }
+    return yield res.text();
   });
 }
 
@@ -93,8 +109,6 @@ function getQualityScore(qualityStr) {
     return 720;
   if (q.includes("480") || q.includes("sd"))
     return 480;
-  if (q.includes("360") || q.includes("320"))
-    return 360;
   return 500;
 }
 function getLanguageScore(langStr) {
@@ -132,10 +146,6 @@ function detectHost(url) {
     return "Filemoon";
   if (u.includes("mixdrop"))
     return "Mixdrop";
-  if (u.includes("upstream"))
-    return "Upstream";
-  if (u.includes("supervideo"))
-    return "Supervideo";
   return "Serveur Rapide";
 }
 function getMediaInfo(tmdbId, isSeries) {
@@ -172,79 +182,62 @@ function extractStreams(tmdbId, mediaType, season, episode) {
     try {
       const mediaInfo = yield getMediaInfo(tmdbId, isSeries);
       const searchTitle = mediaInfo && mediaInfo.titleFr ? mediaInfo.titleFr : mediaInfo ? mediaInfo.titleEn : tmdbId;
-      console.log("[Sokroflix] Scraping direct pour:", searchTitle, "(" + type + ")");
-      let searchHtml = "";
-      const searchUrl = DOMAIN + "/?s=" + encodeURIComponent(searchTitle);
       try {
-        searchHtml = yield fetchText(searchUrl, { headers: HEADERS });
-      } catch (fetchErr) {
-        console.log("[Sokroflix] Recherche inaccessible:", fetchErr.message);
-      }
-      if (searchHtml) {
-        const $ = import_cheerio_without_node_native.default.load(searchHtml);
-        let mediaPageUrl = "";
-        $(".item, .film, article").each((i, el) => {
-          if (mediaPageUrl)
-            return;
-          const linkEl = $(el).find("h3 a, .title a, a").first();
-          const linkHref = linkEl.attr("href") || $(el).find("a").first().attr("href");
-          if (linkHref) {
-            mediaPageUrl = linkHref.startsWith("http") ? linkHref : DOMAIN + linkHref;
-          }
-        });
-        if (mediaPageUrl) {
-          console.log("[Sokroflix] Page trouv\xE9e:", mediaPageUrl);
-          try {
-            const pageHtml = yield fetchText(mediaPageUrl, { headers: HEADERS });
+        const searchUrl = DOMAIN + "/?s=" + encodeURIComponent(searchTitle);
+        const searchHtml = yield fetchText(searchUrl, {}, 1500);
+        if (searchHtml) {
+          const $ = import_cheerio_without_node_native.default.load(searchHtml);
+          const firstResult = $("a[href*='/'], h2 a, h3 a, .title a").first().attr("href");
+          if (firstResult) {
+            const pageUrl = firstResult.startsWith("http") ? firstResult : DOMAIN + firstResult;
+            const pageHtml = yield fetchText(pageUrl, {}, 1500);
             const $$ = import_cheerio_without_node_native.default.load(pageHtml);
-            $$("iframe, .player-iframe iframe").each((i, el) => {
+            $$("iframe").each((i, el) => {
               const src = $$(el).attr("src") || $$(el).attr("data-src") || "";
-              if (src && !src.includes("google") && !src.includes("analytics") && !src.includes("doubleclick")) {
-                const playerUrl = src.startsWith("//") ? "https:" + src : src.startsWith("http") ? src : DOMAIN + src;
-                const hostName = detectHost(playerUrl);
+              if (src && !src.includes("google") && !src.includes("ads")) {
+                const playerUrl = src.startsWith("//") ? "https:" + src : src;
+                const host = detectHost(playerUrl);
                 streams.push({
                   name: "Sokroflix",
-                  title: "\u{1F1EB}\u{1F1F7} VF \u2022 " + hostName + " (1080p FHD)",
+                  title: "\u{1F1EB}\u{1F1F7} VF \u2022 " + host + " (1080p FHD)",
                   url: playerUrl,
                   quality: "1080p",
                   headers: HEADERS
                 });
               }
             });
-          } catch (pageErr) {
-            console.log("[Sokroflix] Erreur scraping page:", pageErr.message);
           }
         }
+      } catch (e) {
       }
       if (streams.length === 0) {
-        let backupUrl = "";
+        let directUrl = "";
         if (!isSeries) {
-          backupUrl = "https://vidsrc.me/embed/movie?tmdb=" + tmdbId;
+          directUrl = "https://vidsrc.me/embed/movie?tmdb=" + tmdbId;
         } else {
           const sNum = season || 1;
           const eNum = episode || 1;
-          backupUrl = "https://vidsrc.me/embed/tv?tmdb=" + tmdbId + "&season=" + sNum + "&episode=" + eNum;
+          directUrl = "https://vidsrc.me/embed/tv?tmdb=" + tmdbId + "&season=" + sNum + "&episode=" + eNum;
         }
-        if (backupUrl) {
+        if (directUrl) {
           streams.push({
             name: "Sokroflix",
             title: "\u{1F1EB}\u{1F1F7} VF \u2022 1080p Full HD",
-            url: backupUrl,
+            url: directUrl,
             quality: "1080p",
             headers: HEADERS
           });
           streams.push({
             name: "Sokroflix",
             title: "\u{1F1EB}\u{1F1F7} MULTI (VF/VOSTFR) \u2022 720p HD",
-            url: backupUrl,
+            url: directUrl,
             quality: "720p",
             headers: HEADERS
           });
         }
       }
       streams = sortStreamsByPriority(streams);
-    } catch (error) {
-      console.error("[Sokroflix] Erreur globale:", error);
+    } catch (err) {
       return [];
     }
     return streams;

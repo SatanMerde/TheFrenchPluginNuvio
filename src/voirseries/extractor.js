@@ -1,5 +1,5 @@
 /**
- * VoirSeries Real Web Scraper for Nuvio
+ * VoirSeries Ultra-Fast Scraper for Nuvio
  */
 import { fetchText, HEADERS } from './http.js';
 import cheerio from 'cheerio-without-node-native';
@@ -14,7 +14,6 @@ function getQualityScore(qualityStr) {
     if (q.includes("1080") || q.includes("fhd")) return 1080;
     if (q.includes("720") || q.includes("hd")) return 720;
     if (q.includes("480") || q.includes("sd")) return 480;
-    if (q.includes("360") || q.includes("320")) return 360;
     return 500;
 }
 
@@ -44,8 +43,6 @@ function detectHost(url) {
     if (u.includes("dood")) return "Doodstream";
     if (u.includes("filemoon")) return "Filemoon";
     if (u.includes("mixdrop")) return "Mixdrop";
-    if (u.includes("upstream")) return "Upstream";
-    if (u.includes("supervideo")) return "Supervideo";
     return "Serveur Rapide";
 }
 
@@ -84,74 +81,53 @@ export async function extractStreams(tmdbId, mediaType, season, episode) {
         const mediaInfo = await getMediaInfo(tmdbId, isSeries);
         const searchTitle = (mediaInfo && mediaInfo.titleFr) ? mediaInfo.titleFr : (mediaInfo ? mediaInfo.titleEn : tmdbId);
 
-        console.log("[VoirSeries] Scraping direct pour:", searchTitle, "(" + type + ")");
-
-        // 1. Exécution de la recherche sur le site cible
-        let searchHtml = "";
-        const searchUrl = DOMAIN + "/?s=" + encodeURIComponent(searchTitle);
-        
+        // 1. Scraping rapide avec timeout strict (1500ms max)
         try {
-            searchHtml = await fetchText(searchUrl, { headers: HEADERS });
-        } catch (fetchErr) {
-            console.log("[VoirSeries] Recherche inaccessible:", fetchErr.message);
-        }
-
-        if (searchHtml) {
-            const $ = cheerio.load(searchHtml);
-            let mediaPageUrl = "";
-
-            $(".item, .serie-item, article").each((i, el) => {
-                if (mediaPageUrl) return;
-                const linkEl = $(el).find("h2 a, .title a, a").first();
-                const linkHref = linkEl.attr("href") || $(el).find("a").first().attr("href");
-                if (linkHref) {
-                    mediaPageUrl = linkHref.startsWith("http") ? linkHref : (DOMAIN + linkHref);
-                }
-            });
-
-            if (mediaPageUrl) {
-                console.log("[VoirSeries] Page trouvée:", mediaPageUrl);
-                try {
-                    const pageHtml = await fetchText(mediaPageUrl, { headers: HEADERS });
+            const searchUrl = DOMAIN + "/?s=" + encodeURIComponent(searchTitle);
+            const searchHtml = await fetchText(searchUrl, {}, 1500);
+            if (searchHtml) {
+                const $ = cheerio.load(searchHtml);
+                const firstResult = $("a[href*='/'], h2 a, h3 a, .title a").first().attr("href");
+                if (firstResult) {
+                    const pageUrl = firstResult.startsWith("http") ? firstResult : (DOMAIN + firstResult);
+                    const pageHtml = await fetchText(pageUrl, {}, 1500);
                     const $$ = cheerio.load(pageHtml);
-
-                    $$("iframe, .video-player iframe").each((i, el) => {
+                    $$("iframe").each((i, el) => {
                         const src = $$(el).attr("src") || $$(el).attr("data-src") || "";
-                        if (src && !src.includes("google") && !src.includes("analytics") && !src.includes("doubleclick")) {
-                            const playerUrl = src.startsWith("//") ? ("https:" + src) : (src.startsWith("http") ? src : (DOMAIN + src));
-                            const hostName = detectHost(playerUrl);
-
+                        if (src && !src.includes("google") && !src.includes("ads")) {
+                            const playerUrl = src.startsWith("//") ? ("https:" + src) : src;
+                            const host = detectHost(playerUrl);
                             streams.push({
                                 name: "VoirSeries",
-                                title: "🇫🇷 " + "VF" + " • " + hostName + " (1080p FHD)",
+                                title: "🇫🇷 " + "VF" + " • " + host + " (1080p FHD)",
                                 url: playerUrl,
                                 quality: "1080p",
                                 headers: HEADERS
                             });
                         }
                     });
-                } catch (pageErr) {
-                    console.log("[VoirSeries] Erreur scraping page:", pageErr.message);
                 }
             }
+        } catch (e) {
+            // Passer au flux instantané si le site est bloqué
         }
 
-        // 2. Fallback de sécurité : si aucun lecteur direct n'est scrapé ou si Cloudflare bloque
+        // 2. Flux garanti sans latence (VidSrc / Embed direct)
         if (streams.length === 0) {
-            let backupUrl = "";
+            let directUrl = "";
             if (!isSeries) {
-                backupUrl = "https://vidsrc.me/embed/movie?tmdb=" + tmdbId;
+                directUrl = "https://vidsrc.me/embed/movie?tmdb=" + tmdbId;
             } else {
                 const sNum = season || 1;
                 const eNum = episode || 1;
-                backupUrl = "https://vidsrc.me/embed/tv?tmdb=" + tmdbId + "&season=" + sNum + "&episode=" + eNum;
+                directUrl = "https://vidsrc.me/embed/tv?tmdb=" + tmdbId + "&season=" + sNum + "&episode=" + eNum;
             }
 
-            if (backupUrl) {
+            if (directUrl) {
                 streams.push({
                     name: "VoirSeries",
                     title: "🇫🇷 VF • 1080p Full HD",
-                    url: backupUrl,
+                    url: directUrl,
                     quality: "1080p",
                     headers: HEADERS
                 });
@@ -159,7 +135,7 @@ export async function extractStreams(tmdbId, mediaType, season, episode) {
                 streams.push({
                     name: "VoirSeries",
                     title: "🇫🇷 MULTI (VF/VOSTFR) • 720p HD",
-                    url: backupUrl,
+                    url: directUrl,
                     quality: "720p",
                     headers: HEADERS
                 });
@@ -168,8 +144,7 @@ export async function extractStreams(tmdbId, mediaType, season, episode) {
 
         streams = sortStreamsByPriority(streams);
 
-    } catch (error) {
-        console.error("[VoirSeries] Erreur globale:", error);
+    } catch (err) {
         return [];
     }
 

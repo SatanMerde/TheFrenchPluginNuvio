@@ -1,42 +1,43 @@
 /**
- * HTTP Utilities
- * Use this file for network requests and headers.
+ * Fast HTTP Utilities with strict Timeout for Nuvio
  */
-
 export const HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36",
-    // Add other common headers like 'Referer' if needed
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
 };
 
-/**
- * Fetch text content from a URL
- * @param {string} url 
- * @param {object} options 
- */
-export async function fetchText(url, options = {}) {
-    console.log(`[Template] Fetching: ${url}`);
-
-    const response = await fetch(url, {
-        headers: {
-            ...HEADERS,
-            ...options.headers
-        },
-        ...options
+export async function fetchWithTimeout(url, options = {}, timeoutMs = 2000) {
+    let timeoutId;
+    const timeoutPromise = new Promise((_, reject) => {
+        timeoutId = setTimeout(() => reject(new Error("Timeout " + timeoutMs + "ms")), timeoutMs);
     });
 
-    if (!response.ok) {
-        throw new Error(`HTTP error ${response.status} for ${url}`);
+    try {
+        const fetchPromise = fetch(url, {
+            headers: {
+                ...HEADERS,
+                ...options.headers
+            },
+            ...options
+        });
+        const response = await Promise.race([fetchPromise, timeoutPromise]);
+        clearTimeout(timeoutId);
+        return response;
+    } catch (e) {
+        clearTimeout(timeoutId);
+        throw e;
     }
-
-    return await response.text();
 }
 
-/**
- * Fetch JSON content from a URL
- * @param {string} url 
- * @param {object} options 
- */
-export async function fetchJson(url, options = {}) {
-    const raw = await fetchText(url, options);
-    return JSON.parse(raw);
+export async function fetchText(url, options = {}, timeoutMs = 2000) {
+    const res = await fetchWithTimeout(url, options, timeoutMs);
+    if (!res.ok) {
+        throw new Error("HTTP error " + res.status);
+    }
+    return await res.text();
+}
+
+export async function fetchJson(url, options = {}, timeoutMs = 2000) {
+    const text = await fetchText(url, options, timeoutMs);
+    return JSON.parse(text);
 }
