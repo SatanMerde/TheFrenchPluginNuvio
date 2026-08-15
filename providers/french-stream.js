@@ -1,6 +1,6 @@
 /**
  * french-stream - Built from src/french-stream/
- * Generated: 2026-08-15T15:20:38.807Z
+ * Generated: 2026-08-15T15:23:37.953Z
  */
 var __create = Object.create;
 var __defProp = Object.defineProperty;

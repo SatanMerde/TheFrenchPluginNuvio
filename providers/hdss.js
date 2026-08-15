@@ -1,6 +1,6 @@
 /**
  * hdss - Built from src/hdss/
- * Generated: 2026-08-15T15:20:38.817Z
+ * Generated: 2026-08-15T15:23:37.960Z
  */
 var __create = Object.create;
 var __defProp = Object.defineProperty;

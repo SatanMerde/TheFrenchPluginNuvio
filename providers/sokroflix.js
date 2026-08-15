@@ -1,6 +1,6 @@
 /**
  * sokroflix - Built from src/sokroflix/
- * Generated: 2026-08-15T15:20:38.851Z
+ * Generated: 2026-08-15T15:23:37.990Z
  */
 var __create = Object.create;
 var __defProp = Object.defineProperty;

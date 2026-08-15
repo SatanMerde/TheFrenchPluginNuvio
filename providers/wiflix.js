@@ -1,6 +1,6 @@
 /**
  * wiflix - Built from src/wiflix/
- * Generated: 2026-08-15T15:20:38.890Z
+ * Generated: 2026-08-15T15:23:38.021Z
  */
 var __create = Object.create;
 var __defProp = Object.defineProperty;
