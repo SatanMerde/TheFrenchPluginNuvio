@@ -1,6 +1,6 @@
 /**
  * voirseries - Built from src/voirseries/
- * Generated: 2026-08-15T15:23:38.005Z
+ * Generated: 2026-08-15T15:25:12.027Z
  */
 var __create = Object.create;
 var __defProp = Object.defineProperty;

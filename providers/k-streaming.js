@@ -1,6 +1,6 @@
 /**
  * k-streaming - Built from src/k-streaming/
- * Generated: 2026-08-15T15:23:37.968Z
+ * Generated: 2026-08-15T15:25:11.989Z
  */
 var __create = Object.create;
 var __defProp = Object.defineProperty;

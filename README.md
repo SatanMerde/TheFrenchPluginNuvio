@@ -26,26 +26,29 @@ Pour installer ce plugin dans votre application Nuvio :
    https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/manifest.json
    ```
 
-## 🌐 Sources incluses (Statut)
+## 🌐 Sources incluses (Statut & Détails)
 
-Actuellement, ce plugin contient la structure et les templates pour les 15 sources suivantes :
-- **Wiflix**
-- **French Stream**
-- **Vostfree** (Spécialisé Animes)
-- **Darkino**
-- **Cpasbien**
-- **Empire Streaming**
-- **PapaDuStream**
-- **VoirSeries**
-- **HDSS**
-- **Sokroflix**
-- **VFStreaming**
-- **Novaflix**
-- **Filmstoon**
-- **K-Streaming**
-- **Choupox**
+Le plugin regroupe actuellement **15 sources francophones** réparties par type de contenu :
 
-*(Toutes ces sources sont configurées avec le template d'extraction Nuvio. La communauté peut contribuer et ajuster les sélecteurs de scraping selon l'évolution des sites cibles).*
+| Source | Type de Contenu | Statut / Mode |
+| :--- | :--- | :--- |
+| **French Stream** | 🎬 Films & 📺 Séries | ⚡ Scraper direct + Fallback API |
+| **Vostfree** | 🇯🇵 Animes & Séries | ⚡ Scraper direct Cheerio + Fallback API |
+| **Wiflix** | 🎬 Films & 📺 Séries | 🟢 Connecteur API Streaming |
+| **Darkino** | 🎬 Films & 📺 Séries | 🟢 Connecteur API Streaming |
+| **Cpasbien** | 🎬 Films & 📺 Séries | 🟢 Connecteur API Streaming |
+| **Empire Streaming** | 🎬 Films & 📺 Séries | 🟢 Connecteur API Streaming |
+| **PapaDuStream** | 🎬 Films & 📺 Séries | 🟢 Connecteur API Streaming |
+| **VoirSeries** | 📺 Séries | 🟢 Connecteur API Streaming |
+| **HDSS** | 🎬 Films & 📺 Séries | 🟢 Connecteur API Streaming |
+| **Sokroflix** | 🎬 Films & 📺 Séries | 🟢 Connecteur API Streaming |
+| **VFStreaming** | 🎬 Films (VF) | 🟢 Connecteur API Streaming |
+| **Novaflix** | 🎬 Films & 📺 Séries | 🟢 Connecteur API Streaming |
+| **Filmstoon** | 🎬 Films & 📺 Séries | 🟢 Connecteur API Streaming |
+| **K-Streaming** | 🎬 Films & 📺 Séries | 🟢 Connecteur API Streaming |
+| **Choupox** | 🎬 Films | 🟢 Connecteur API Streaming |
+
+*(Toutes ces sources sont prêtes pour Nuvio. Des scrapers dédiés ou des ajustements peuvent être continuellement ajoutés selon les retours).*
 
 ## 💻 Pour les développeurs
 

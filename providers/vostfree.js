@@ -1,6 +1,6 @@
 /**
  * vostfree - Built from src/vostfree/
- * Generated: 2026-08-15T15:23:38.013Z
+ * Generated: 2026-08-15T15:25:12.034Z
  */
 var __create = Object.create;
 var __defProp = Object.defineProperty;

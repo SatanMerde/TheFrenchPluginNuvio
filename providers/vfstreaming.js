@@ -1,6 +1,6 @@
 /**
  * vfstreaming - Built from src/vfstreaming/
- * Generated: 2026-08-15T15:23:37.998Z
+ * Generated: 2026-08-15T15:25:12.020Z
  */
 var __create = Object.create;
 var __defProp = Object.defineProperty;

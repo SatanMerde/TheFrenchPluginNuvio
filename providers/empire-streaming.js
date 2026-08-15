@@ -1,6 +1,6 @@
 /**
  * empire-streaming - Built from src/empire-streaming/
- * Generated: 2026-08-15T15:23:37.937Z
+ * Generated: 2026-08-15T15:25:11.960Z
  */
 var __create = Object.create;
 var __defProp = Object.defineProperty;

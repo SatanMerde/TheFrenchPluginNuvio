@@ -1,6 +1,6 @@
 /**
  * cpasbien - Built from src/cpasbien/
- * Generated: 2026-08-15T15:23:37.922Z
+ * Generated: 2026-08-15T15:25:11.946Z
  */
 var __create = Object.create;
 var __defProp = Object.defineProperty;

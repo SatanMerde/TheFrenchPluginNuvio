@@ -1,6 +1,6 @@
 /**
  * papadustream - Built from src/papadustream/
- * Generated: 2026-08-15T15:23:37.983Z
+ * Generated: 2026-08-15T15:25:12.005Z
  */
 var __create = Object.create;
 var __defProp = Object.defineProperty;
