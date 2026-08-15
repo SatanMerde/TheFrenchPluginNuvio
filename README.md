@@ -16,10 +16,19 @@ Pour installer ce plugin dans votre application Nuvio :
 
 ## 🌐 Sources incluses (Statut)
 
-Actuellement, ce plugin contient le **squelette** pour la source suivante :
-- **Wiflix (FR)** : *(En cours de développement - La structure est prête, mais l'extraction vidéo doit encore être implémentée)*
+Actuellement, ce plugin contient les **squelettes** (prêts à être développés) pour les 10 sources suivantes :
+- **Wiflix**
+- **French Stream**
+- **Vostfree** (Spécialisé Animes)
+- **Darkino**
+- **Cpasbien**
+- **Empire Streaming**
+- **PapaDuStream**
+- **VoirSeries**
+- **HDSS**
+- **Sokroflix**
 
-*Note: N'hésitez pas à contribuer pour ajouter d'autres sources comme Vostfree, French Stream, etc.*
+*(Toutes ces sources sont actuellement en cours de développement - La structure est prête, mais l'extraction vidéo (scraping) doit encore être implémentée pour chacune d'entre elles)*
 
 ## 💻 Pour les développeurs
 
