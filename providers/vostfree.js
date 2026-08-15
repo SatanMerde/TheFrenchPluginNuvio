@@ -1,6 +1,6 @@
 /**
- * _template - Built from src/_template/
- * Generated: 2026-08-15T15:07:49.814Z
+ * vostfree - Built from src/vostfree/
+ * Generated: 2026-08-15T15:07:49.800Z
  */
 var __create = Object.create;
 var __defProp = Object.defineProperty;
@@ -45,23 +45,47 @@ var __async = (__this, __arguments, generator) => {
   });
 };
 
-// src/_template/extractor.js
+// src/vostfree/http.js
+var HEADERS = {
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36"
+  // Add other common headers like 'Referer' if needed
+};
+
+// src/vostfree/extractor.js
 var import_cheerio_without_node_native = __toESM(require("cheerio-without-node-native"));
 function extractStreams(tmdbId, mediaType, season, episode) {
   return __async(this, null, function* () {
-    return [];
+    console.log(`Extraction pour: ${tmdbId}, Type: ${mediaType}`);
+    const streams = [];
+    try {
+      const searchQuery = tmdbId;
+      const searchUrl = `https://example-streaming-site.com/search?q=${searchQuery}`;
+      const videoUrl = "https://test-video-url.com/stream.mp4";
+      if (videoUrl) {
+        streams.push({
+          name: "Vostfree",
+          title: "Lien Serveur 1 (FR)",
+          url: videoUrl,
+          quality: "1080p",
+          headers: HEADERS
+        });
+      }
+    } catch (error) {
+      console.error("Erreur lors de l'extraction: ", error);
+    }
+    return streams;
   });
 }
 
-// src/_template/index.js
+// src/vostfree/index.js
 function getStreams(tmdbId, mediaType, season, episode) {
   return __async(this, null, function* () {
     try {
-      console.log(`[Template] Request: ${mediaType} ${tmdbId}`);
+      console.log(`[Vostfree] Request: ${mediaType} ${tmdbId}`);
       const streams = yield extractStreams(tmdbId, mediaType, season, episode);
       return streams;
     } catch (error) {
-      console.error(`[Template] Error: ${error.message}`);
+      console.error(`[Vostfree] Error: ${error.message}`);
       return [];
     }
   });
