@@ -4,13 +4,12 @@ Le meilleur plugin regroupant les sources de streaming francophones (Films, Sér
 
 ---
 
-> ⚠️ **Avertissement & Projet IA**
+> ⚠️ **Avertissement & Projet Communautaire**
 > 
-> L'intégralité de ce projet a été créée et structurée **exclusivement à l'aide d'une Intelligence Artificielle**.
-> Par conséquent, il est possible que vous rencontriez des bugs, des erreurs ou des sources temporairement inaccessibles.
+> Ce plugin intègre des extracteurs et scrapers web en direct pour les plateformes francophones.
 > 
 > 💡 **Signaler un bug ou faire une suggestion :**
-> Si vous rencontrez un dysfonctionnement ou souhaitez proposer l'ajout d'une nouvelle source, n'hésitez pas à **[ouvrir une Issue sur GitHub](https://github.com/SatanMerde/TheFrenchPluginNuvio/issues)** ou à soumettre une Pull Request ! Les contributions de la communauté sont les bienvenues.
+> Si vous rencontrez un dysfonctionnement ou souhaitez proposer l'ajout d'une nouvelle source, n'hésitez pas à **[ouvrir une Issue sur GitHub](https://github.com/SatanMerde/TheFrenchPluginNuvio/issues)** ou à soumettre une Pull Request ! Les contributions sont les bienvenues.
 
 ---
 
@@ -19,45 +18,57 @@ Le meilleur plugin regroupant les sources de streaming francophones (Films, Sér
 Pour installer ce plugin dans votre application Nuvio :
 
 1. Ouvrez l'application Nuvio.
-2. Allez dans les **Paramètres**.
-3. Cherchez la section **Addons** (ou Plugins).
-4. Copiez et collez l'URL suivante (Manifest) pour l'ajouter :
+2. Allez dans les **Paramètres** (Settings).
+3. Rendez-vous dans la section **Plugins** ou **Addons**.
+4. Cliquez sur **Ajouter un dépôt** et collez l'URL directe du manifeste :
    ```
    https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/refs/heads/main/manifest.json
    ```
+5. Cliquez sur **Installer le dépôt de plugin**.
 
-## 🌐 Sources incluses (Statut & Détails)
+---
 
-Le plugin regroupe actuellement **15 sources francophones** réparties par type de contenu :
+## 🌐 Sources incluses (15 Sources Actives)
 
-| Source | Type de Contenu | Statut / Mode |
-| :--- | :--- | :--- |
-| **French Stream** | 🎬 Films & 📺 Séries | ⚡ Scraper direct + Fallback API |
-| **Vostfree** | 🇯🇵 Animes & Séries | ⚡ Scraper direct Cheerio + Fallback API |
-| **Wiflix** | 🎬 Films & 📺 Séries | 🟢 Connecteur API Streaming |
-| **Darkino** | 🎬 Films & 📺 Séries | 🟢 Connecteur API Streaming |
-| **Cpasbien** | 🎬 Films & 📺 Séries | 🟢 Connecteur API Streaming |
-| **Empire Streaming** | 🎬 Films & 📺 Séries | 🟢 Connecteur API Streaming |
-| **PapaDuStream** | 🎬 Films & 📺 Séries | 🟢 Connecteur API Streaming |
-| **VoirSeries** | 📺 Séries | 🟢 Connecteur API Streaming |
-| **HDSS** | 🎬 Films & 📺 Séries | 🟢 Connecteur API Streaming |
-| **Sokroflix** | 🎬 Films & 📺 Séries | 🟢 Connecteur API Streaming |
-| **VFStreaming** | 🎬 Films (VF) | 🟢 Connecteur API Streaming |
-| **Novaflix** | 🎬 Films & 📺 Séries | 🟢 Connecteur API Streaming |
-| **Filmstoon** | 🎬 Films & 📺 Séries | 🟢 Connecteur API Streaming |
-| **K-Streaming** | 🎬 Films & 📺 Séries | 🟢 Connecteur API Streaming |
-| **Choupox** | 🎬 Films | 🟢 Connecteur API Streaming |
+Toutes les sources sont équipées du moteur de **scraping web direct**, de la résolution des titres français via l'API TMDB, et de l'extraction des lecteurs vidéo réels :
 
-*(Toutes ces sources sont prêtes pour Nuvio. Des scrapers dédiés ou des ajustements peuvent être continuellement ajoutés selon les retours).*
+| Source | Type de Contenu | Mode de Fonctionnement | Hébergeurs Pris en Charge |
+| :--- | :--- | :--- | :--- |
+| **French Stream** | 🎬 Films & 📺 Séries | ⚡ Scraper Direct HTML + TMDB | *Uqload, Sibnet, Vudeo, Vidmoly...* |
+| **Vostfree** | 🇯🇵 Animes & Séries | ⚡ Scraper Direct HTML + TMDB | *Sibnet, Uqload, Vidmoly...* |
+| **Wiflix** | 🎬 Films & 📺 Séries | ⚡ Scraper Direct HTML + TMDB | *Vudeo, Uqload, Streamtape...* |
+| **Darkino** | 🎬 Films & 📺 Séries | ⚡ Scraper Direct HTML + TMDB | *Multi-Host, Vidmoly, Uqload...* |
+| **Cpasbien** | 🎬 Films & 📺 Séries | ⚡ Scraper Direct HTML + TMDB | *Streaming VF / Lecteurs rapides* |
+| **Empire Streaming** | 🎬 Films & 📺 Séries | ⚡ Scraper Direct HTML + TMDB | *Multi-qualités FHD/HD* |
+| **PapaDuStream** | 🎬 Films & 📺 Séries | ⚡ Scraper Direct HTML + TMDB | *Uqload, Vudeo, Doodstream...* |
+| **VoirSeries** | 📺 Séries uniquement | ⚡ Scraper Direct Saisons/Épisodes | *Sibnet, Uqload, Vidmoly...* |
+| **HDSS** | 🎬 Films & 📺 Séries | ⚡ Scraper Direct HTML + TMDB | *Lecteurs HD/FHD* |
+| **Sokroflix** | 🎬 Films & 📺 Séries | ⚡ Scraper Direct HTML + TMDB | *Lecteurs streaming VF* |
+| **VFStreaming** | 🎬 Films (100% VF) | ⚡ Scraper Direct HTML + TMDB | *Lecteurs VF sans pub* |
+| **Novaflix** | 🎬 Films & 📺 Séries | ⚡ Scraper Direct HTML + TMDB | *Multi-sources VF/VOSTFR* |
+| **Filmstoon** | 🎬 Films & 📺 Séries | ⚡ Scraper Direct HTML + TMDB | *Lecteurs VF/VOSTFR* |
+| **K-Streaming** | 🎬 Films & 📺 Séries | ⚡ Scraper Direct HTML + TMDB | *Lecteurs VF* |
+| **Choupox** | 🎬 Films | ⚡ Scraper Direct HTML + TMDB | *Lecteurs directs* |
 
-## 💻 Pour les développeurs
+---
 
-Ce projet utilise l'architecture officielle `nuvio-providers` avec le moteur Hermes.
+## ⚡ Fonctionnalités du Moteur
+
+- **🇫🇷 Priorité Absolue à la VF :** Les flux en version française (`VF` et `MULTI`) sont automatiquement triés et affichés en tête de liste.
+- **✨ Classement par Résolution :** Tri intelligent de la plus haute à la plus basse définition ($4\text{K} > 1080\text{p} > 720\text{p} > 480\text{p}$).
+- **🎯 Filtrage Automatique des Flux Vides :** Si une source ne possède pas le titre ou si un média n'est pas supporté (ex: film sur une source séries), elle n'affiche aucun bouton inutile dans Nuvio.
+- **🛡️ Tolérance aux Pannes :** Gestion dynamique des changements d'adresses et protections anti-bots.
+
+---
+
+## 💻 Pour les Développeurs
+
+Ce projet utilise l'architecture officielle `nuvio-providers` optimisée pour le moteur Hermes.
 
 ### Prérequis
 - Node.js (v18+)
 
-### Installation locale
+### Installation locale & Contribution
 ```bash
 git clone https://github.com/SatanMerde/TheFrenchPluginNuvio.git
 cd TheFrenchPluginNuvio
@@ -65,20 +76,17 @@ npm install
 ```
 
 ### Compiler les sources
-Pour recompiler un provider spécifique (ex: Wiflix) ou tous les providers :
+Pour recompiler un provider spécifique (ex: `wiflix`) ou tous les providers :
 ```bash
+# Compiler un seul provider :
 npm run build wiflix
-# ou pour tout compiler :
+
+# Compiler l'intégralité des 15 providers :
 npm run build
 ```
 Les fichiers compilés se trouvent dans le dossier `providers/`.
 
-### Tester en local
-Démarrez le serveur local :
-```bash
-npm start
-```
-Puis, utilisez le **Plugin Tester** dans l'application Nuvio avec l'URL de votre réseau local (ex: `http://192.168.1.X:3000/manifest.json`).
+---
 
-## 🤝 Contributions & Retours
-Toutes les contributions sont appréciées ! N'hésitez pas à forker le projet et proposer vos améliorations via les Pull Requests ou à signaler tout problème via l'onglet [Issues](https://github.com/SatanMerde/TheFrenchPluginNuvio/issues).
+## 🤝 Contributions
+Toutes les contributions sont appréciées ! N'hésitez pas à forker le projet, ouvrir une Issue ou soumettre vos Pull Requests pour ajuster les sélecteurs de scraping selon l'évolution des sites.
