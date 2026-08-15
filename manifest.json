@@ -1,26 +1,15 @@
-[
-  {
-    "id": "template-provider",
-    "name": "Template Provider",
-    "description": "A starter template for creating Nuvio providers.",
+{
+    "id": "com.satanmerde.frenchplugin",
+    "name": "The French Plugin",
     "version": "1.0.0",
-    "author": "Your Name",
-    "supportedTypes": [
-      "movie",
-      "tv"
-    ],
-    "filename": "providers/template.js",
-    "enabled": false,
-    "logo": "",
-    "contentLanguage": [
-      "en"
-    ],
-    "formats": [
-      "mp4",
-      "mkv"
-    ],
-    "limited": false,
-    "disabledPlatforms": [],
-    "supportsExternalPlayer": true
-  }
-]
+    "description": "Le meilleur plugin de sources francophones pour Nuvio (Films, Séries, Animes).",
+    "providers": [
+        {
+            "id": "wiflix",
+            "name": "Wiflix (FR)",
+            "filename": "providers/wiflix.js",
+            "supportedTypes": ["movie", "tv"],
+            "enabled": true
+        }
+    ]
+}
