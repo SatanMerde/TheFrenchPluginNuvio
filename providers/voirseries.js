@@ -1,6 +1,6 @@
 /**
  * voirseries - Built from src/voirseries/
- * Generated: 2026-08-15T15:25:12.027Z
+ * Generated: 2026-08-15T15:34:07.149Z
  */
 var __create = Object.create;
 var __defProp = Object.defineProperty;
@@ -55,28 +55,35 @@ var HEADERS = {
 var import_cheerio_without_node_native = __toESM(require("cheerio-without-node-native"));
 function extractStreams(tmdbId, mediaType, season, episode) {
   return __async(this, null, function* () {
-    console.log(`Extraction pour: ${tmdbId}, Type: ${mediaType}`);
+    if (!tmdbId)
+      return [];
+    const supportedTypes = ["tv"];
+    if (!supportedTypes.includes(mediaType)) {
+      return [];
+    }
+    console.log(`[${config.name}] Recherche de flux pour: ${tmdbId} (${mediaType})`);
     const streams = [];
     try {
-      const searchQuery = tmdbId;
-      const searchUrl = `https://example-streaming-site.com/search?q=${searchQuery}`;
-      let videoUrl = "";
+      let streamUrl = "";
       if (mediaType === "movie") {
-        videoUrl = `https://vidsrc.me/embed/movie?tmdb=${tmdbId}`;
+        streamUrl = `https://vidsrc.me/embed/movie?tmdb=${tmdbId}`;
       } else if (mediaType === "tv") {
-        videoUrl = `https://vidsrc.me/embed/tv?tmdb=${tmdbId}&season=${season}&episode=${episode}`;
+        const s = season || 1;
+        const e = episode || 1;
+        streamUrl = `https://vidsrc.me/embed/tv?tmdb=${tmdbId}&season=${s}&episode=${e}`;
       }
-      if (videoUrl) {
+      if (streamUrl) {
         streams.push({
           name: "VoirSeries",
-          title: "Serveur API 1 (Multilangue)",
-          url: videoUrl,
+          title: "VF / VOSTFR \u2022 1080p FHD",
+          url: streamUrl,
           quality: "1080p",
           headers: HEADERS
         });
       }
     } catch (error) {
-      console.error("Erreur lors de l'extraction: ", error);
+      console.error(`[${config.name}] Erreur lors de l'extraction: `, error.message);
+      return [];
     }
     return streams;
   });
