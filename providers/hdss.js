@@ -1,29 +1,7 @@
 /**
  * hdss - Built from src/hdss/
- * Generated: 2026-08-15T15:36:12.647Z
+ * Generated: 2026-08-15T15:39:46.977Z
  */
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
 var __async = (__this, __arguments, generator) => {
   return new Promise((resolve, reject) => {
     var fulfilled = (value) => {
@@ -52,7 +30,6 @@ var HEADERS = {
 };
 
 // src/hdss/extractor.js
-var import_cheerio_without_node_native = __toESM(require("cheerio-without-node-native"));
 function getQualityScore(qualityStr) {
   const q = (qualityStr || "").toLowerCase();
   if (q.includes("4k") || q.includes("2160"))
@@ -90,40 +67,43 @@ function extractStreams(tmdbId, mediaType, season, episode) {
   return __async(this, null, function* () {
     if (!tmdbId)
       return [];
-    const supportedTypes = ["movie", "tv"];
-    if (!supportedTypes.includes(mediaType)) {
+    const type = (mediaType || "movie").toLowerCase();
+    const isSeries = type === "series" || type === "tv" || type === "show";
+    const normalizedType = isSeries ? "tv" : "movie";
+    const supportedTypes = ["movie", "tv", "series"];
+    if (!supportedTypes.includes(normalizedType) && !supportedTypes.includes(type)) {
       return [];
     }
-    console.log(`[${config.name}] Recherche de flux pour: ${tmdbId} (${mediaType})`);
+    console.log("[HDSS] Extraction pour ID:", tmdbId, "Type:", type);
     let streams = [];
     try {
-      let baseUrl = "";
-      if (mediaType === "movie") {
-        baseUrl = `https://vidsrc.me/embed/movie?tmdb=${tmdbId}`;
-      } else if (mediaType === "tv") {
+      let streamUrl = "";
+      if (!isSeries) {
+        streamUrl = "https://vidsrc.me/embed/movie?tmdb=" + tmdbId;
+      } else {
         const s = season || 1;
         const e = episode || 1;
-        baseUrl = `https://vidsrc.me/embed/tv?tmdb=${tmdbId}&season=${s}&episode=${e}`;
+        streamUrl = "https://vidsrc.me/embed/tv?tmdb=" + tmdbId + "&season=" + s + "&episode=" + e;
       }
-      if (baseUrl) {
+      if (streamUrl) {
         streams.push({
           name: "HDSS",
           title: "\u{1F1EB}\u{1F1F7} VF \u2022 1080p Full HD",
-          url: baseUrl,
+          url: streamUrl,
           quality: "1080p",
           headers: HEADERS
         });
         streams.push({
           name: "HDSS",
           title: "\u{1F1EB}\u{1F1F7} MULTI (VF/VOSTFR) \u2022 720p HD",
-          url: baseUrl,
+          url: streamUrl,
           quality: "720p",
           headers: HEADERS
         });
       }
       streams = sortStreamsByPriority(streams);
     } catch (error) {
-      console.error(`[${config.name}] Erreur lors de l'extraction: `, error.message);
+      console.error("[HDSS] Erreur:", error);
       return [];
     }
     return streams;
