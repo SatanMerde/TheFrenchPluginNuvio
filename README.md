@@ -23,7 +23,7 @@ Pour installer ce plugin dans votre application Nuvio :
 3. Cherchez la section **Addons** (ou Plugins).
 4. Copiez et collez l'URL suivante (Manifest) pour l'ajouter :
    ```
-   https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/manifest.json
+   https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/refs/heads/main/manifest.json
    ```
 
 ## 🌐 Sources incluses (Statut & Détails)
