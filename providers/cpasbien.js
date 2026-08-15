@@ -1,6 +1,6 @@
 /**
  * cpasbien - Built from src/cpasbien/
- * Generated: 2026-08-15T15:17:53.047Z
+ * Generated: 2026-08-15T15:20:38.774Z
  */
 var __create = Object.create;
 var __defProp = Object.defineProperty;
@@ -60,11 +60,16 @@ function extractStreams(tmdbId, mediaType, season, episode) {
     try {
       const searchQuery = tmdbId;
       const searchUrl = `https://example-streaming-site.com/search?q=${searchQuery}`;
-      const videoUrl = "https://test-video-url.com/stream.mp4";
+      let videoUrl = "";
+      if (mediaType === "movie") {
+        videoUrl = `https://vidsrc.me/embed/movie?tmdb=${tmdbId}`;
+      } else if (mediaType === "tv") {
+        videoUrl = `https://vidsrc.me/embed/tv?tmdb=${tmdbId}&season=${season}&episode=${episode}`;
+      }
       if (videoUrl) {
         streams.push({
           name: "Cpasbien",
-          title: "Lien Serveur 1 (FR)",
+          title: "Serveur API 1 (Multilangue)",
           url: videoUrl,
           quality: "1080p",
           headers: HEADERS

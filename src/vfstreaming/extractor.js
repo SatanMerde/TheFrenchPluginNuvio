@@ -32,12 +32,18 @@ export async function extractStreams(tmdbId, mediaType, season, episode) {
         // const videoUrl = $$('iframe.lecteur').attr('src');
         
         // Exemple de vidéo trouvée (Données fictives)
-        const videoUrl = "https://test-video-url.com/stream.mp4";
+        // Utilisation de VidSrc (API publique gratuite) comme solution fonctionnelle
+        let videoUrl = "";
+        if (mediaType === "movie") {
+            videoUrl = `https://vidsrc.me/embed/movie?tmdb=${tmdbId}`;
+        } else if (mediaType === "tv") {
+            videoUrl = `https://vidsrc.me/embed/tv?tmdb=${tmdbId}&season=${season}&episode=${episode}`;
+        }
 
         if (videoUrl) {
             streams.push({
                 name: "VFStreaming",
-                title: "Lien Serveur 1 (FR)",
+                title: "Serveur API 1 (Multilangue)",
                 url: videoUrl,
                 quality: "1080p",
                 headers: HEADERS
