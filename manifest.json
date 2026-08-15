@@ -7,152 +7,152 @@
         {
             "id": "wiflix",
             "name": "Wiflix (FR)",
-            "filename": "providers/wiflix.js",
             "supportedTypes": [
                 "movie",
                 "tv"
             ],
-            "enabled": true
+            "enabled": true,
+            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/wiflix.js"
         },
         {
             "id": "french-stream",
             "name": "French Stream",
-            "filename": "providers/french-stream.js",
             "supportedTypes": [
                 "movie",
                 "tv"
             ],
-            "enabled": true
+            "enabled": true,
+            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/french-stream.js"
         },
         {
             "id": "vostfree",
             "name": "Vostfree",
-            "filename": "providers/vostfree.js",
             "supportedTypes": [
                 "movie",
                 "tv"
             ],
-            "enabled": true
+            "enabled": true,
+            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/vostfree.js"
         },
         {
             "id": "darkino",
             "name": "Darkino",
-            "filename": "providers/darkino.js",
             "supportedTypes": [
                 "movie",
                 "tv"
             ],
-            "enabled": true
+            "enabled": true,
+            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/darkino.js"
         },
         {
             "id": "cpasbien",
             "name": "Cpasbien",
-            "filename": "providers/cpasbien.js",
             "supportedTypes": [
                 "movie",
                 "tv"
             ],
-            "enabled": true
+            "enabled": true,
+            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/cpasbien.js"
         },
         {
             "id": "empire-streaming",
             "name": "Empire Streaming",
-            "filename": "providers/empire-streaming.js",
             "supportedTypes": [
                 "movie",
                 "tv"
             ],
-            "enabled": true
+            "enabled": true,
+            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/empire-streaming.js"
         },
         {
             "id": "papadustream",
             "name": "PapaDuStream",
-            "filename": "providers/papadustream.js",
             "supportedTypes": [
                 "movie",
                 "tv"
             ],
-            "enabled": true
+            "enabled": true,
+            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/papadustream.js"
         },
         {
             "id": "voirseries",
             "name": "VoirSeries",
-            "filename": "providers/voirseries.js",
             "supportedTypes": [
                 "movie",
                 "tv"
             ],
-            "enabled": true
+            "enabled": true,
+            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/voirseries.js"
         },
         {
             "id": "hdss",
             "name": "HDSS",
-            "filename": "providers/hdss.js",
             "supportedTypes": [
                 "movie",
                 "tv"
             ],
-            "enabled": true
+            "enabled": true,
+            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/hdss.js"
         },
         {
             "id": "sokroflix",
             "name": "Sokroflix",
-            "filename": "providers/sokroflix.js",
             "supportedTypes": [
                 "movie",
                 "tv"
             ],
-            "enabled": true
+            "enabled": true,
+            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/sokroflix.js"
         },
         {
             "id": "vfstreaming",
             "name": "VFStreaming",
-            "filename": "providers/vfstreaming.js",
             "supportedTypes": [
                 "movie",
                 "tv"
             ],
-            "enabled": true
+            "enabled": true,
+            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/vfstreaming.js"
         },
         {
             "id": "novaflix",
             "name": "Novaflix",
-            "filename": "providers/novaflix.js",
             "supportedTypes": [
                 "movie",
                 "tv"
             ],
-            "enabled": true
+            "enabled": true,
+            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/novaflix.js"
         },
         {
             "id": "filmstoon",
             "name": "Filmstoon",
-            "filename": "providers/filmstoon.js",
             "supportedTypes": [
                 "movie",
                 "tv"
             ],
-            "enabled": true
+            "enabled": true,
+            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/filmstoon.js"
         },
         {
             "id": "k-streaming",
             "name": "K-Streaming",
-            "filename": "providers/k-streaming.js",
             "supportedTypes": [
                 "movie",
                 "tv"
             ],
-            "enabled": true
+            "enabled": true,
+            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/k-streaming.js"
         },
         {
             "id": "choupox",
             "name": "Choupox",
-            "filename": "providers/choupox.js",
             "supportedTypes": [
                 "movie",
                 "tv"
             ],
-            "enabled": true
+            "enabled": true,
+            "url": "https://raw.githubusercontent.com/SatanMerde/TheFrenchPluginNuvio/main/providers/choupox.js"
         }
     ]
 }
