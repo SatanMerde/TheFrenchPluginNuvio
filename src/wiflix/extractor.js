@@ -1,32 +1,51 @@
 /**
  * Extractor Logic
- * This file handles parsing HTML/JSON to find video streams.
+ * NOTE: Ce fichier contient un exemple générique et éducatif de scraping.
+ * Adaptez le code ci-dessous à la structure HTML de votre cible.
  */
 
 import { fetchText, HEADERS } from './http.js';
 import cheerio from 'cheerio-without-node-native';
 
 export async function extractStreams(tmdbId, mediaType, season, episode) {
-    // 1. Construct the search or video URL
-    // const url = `https://example.com/watch/${tmdbId}`;
+    console.log(`Extraction pour: ${tmdbId}, Type: ${mediaType}`);
+    const streams = [];
 
-    // 2. Fetch content
-    // const html = await fetchText(url);
+    try {
+        // 1. (Optionnel) Obtenir le titre du film/série si le site ne supporte pas l'ID TMDB
+        // const title = await getTitleFromTMDB(tmdbId);
+        const searchQuery = tmdbId; // Utilisé comme exemple
+        
+        // 2. Construire l'URL de recherche
+        const searchUrl = `https://example-streaming-site.com/search?q=${searchQuery}`;
+        
+        // 3. Récupérer le code HTML de la page de recherche
+        // const searchHtml = await fetchText(searchUrl);
+        // const $ = cheerio.load(searchHtml);
+        
+        // 4. Trouver le lien de la page du film dans le HTML
+        // const moviePageUrl = $('.result-item a').first().attr('href');
+        
+        // 5. Visiter la page du film et extraire l'iframe ou le lien vidéo
+        // const movieHtml = await fetchText(moviePageUrl);
+        // const $$ = cheerio.load(movieHtml);
+        // const videoUrl = $$('iframe.lecteur').attr('src');
+        
+        // Exemple de vidéo trouvée (Données fictives)
+        const videoUrl = "https://test-video-url.com/stream.mp4";
 
-    // 3. Parse with Cheerio
-    // const $ = cheerio.load(html);
-    // const videoUrl = $('video source').attr('src');
+        if (videoUrl) {
+            streams.push({
+                name: "Wiflix",
+                title: "Lien Serveur 1 (FR)",
+                url: videoUrl,
+                quality: "1080p",
+                headers: HEADERS
+            });
+        }
+    } catch (error) {
+        console.error("Erreur lors de l'extraction: ", error);
+    }
 
-    // 4. Return streams
-    // if (videoUrl) {
-    //     return [{
-    //         name: "Wiflix",
-    //         title: "1080p Stream (FR)",
-    //         url: videoUrl,
-    //         quality: "1080p",
-    //         headers: HEADERS
-    //     }];
-    // }
-
-    return [];
+    return streams;
 }
